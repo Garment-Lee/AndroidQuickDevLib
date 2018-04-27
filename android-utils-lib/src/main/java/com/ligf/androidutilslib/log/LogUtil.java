@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,6 +26,9 @@ public class LogUtil {
 	private static String mLogFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
 			File.separator + "LogInfo" + File.separator + "flog.txt";
 	private static SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+
+	private static RandomAccessFile mMemRandomAccessFile = null;
+
 
 	public static void i(String tag, String msg) {
 		String[] array = getWrappedTagMsg(tag, msg);
@@ -153,14 +156,24 @@ public class LogUtil {
 
 				try {
 					File logFile = new File(mLogFilePath);
+					if (!logFile.getParentFile().exists()){
+						logFile.getParentFile().mkdirs();
+					}
 					if (!logFile.exists()) {
 						logFile.createNewFile();
 					}
-					FileOutputStream fileOutputStream = new FileOutputStream(logFile);
-					fileOutputStream.write(mDateFormat.format(new Date()).getBytes());
-					fileOutputStream.write(buffer, 0, length);
-					fileOutputStream.flush();
-					fileOutputStream.close();
+					//创建随机访问文件
+					if (mMemRandomAccessFile == null) {
+						mMemRandomAccessFile = new RandomAccessFile(logFile, "rw");
+						mMemRandomAccessFile.seek(logFile.length());
+					}
+
+					mMemRandomAccessFile.write(mDateFormat.format(new Date()).getBytes());
+					mMemRandomAccessFile.write("\n".getBytes());
+
+					mMemRandomAccessFile.write(buffer, 0, length);
+					mMemRandomAccessFile.write("\n".getBytes());
+					mMemRandomAccessFile.write("\n".getBytes());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
