@@ -1,1 +1,1 @@
-include ':app', ':android-ui-lib', ':android-utils-lib', ':android-http-lib'
+include ':app', ':android-ui-lib', ':android-utils-lib', ':android-http-lib', ':android-database-lib'
