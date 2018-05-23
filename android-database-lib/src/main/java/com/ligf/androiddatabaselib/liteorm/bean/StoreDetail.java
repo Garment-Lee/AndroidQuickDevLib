@@ -5,6 +5,10 @@ import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 
+/**
+ * 门店详情信息实体类
+ * @author ligangfan
+ */
 @Table("storedetail")
 public class StoreDetail {
 	

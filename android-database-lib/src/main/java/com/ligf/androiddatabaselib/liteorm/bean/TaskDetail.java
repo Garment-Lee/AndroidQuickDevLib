@@ -9,6 +9,10 @@ import com.litesuits.orm.db.enums.Relation;
 
 import java.util.ArrayList;
 
+/**
+ * 任务详情实体类
+ * @author ligangfan
+ */
 @Table("taskdetail")
 public class TaskDetail {
 	

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidUILib</string>
+
+    <string name="doing_refresh">正在刷新中...</string>
+
+    <string name="pull_to_refresh">下拉加载</string>
+    <string name="release_to_refresh">松开刷新</string>
 </resources>
